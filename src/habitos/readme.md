@@ -1,0 +1,1 @@
+Criação, exclusão, gerenciamento total de hábitos de acordo com o próprio usuário.  

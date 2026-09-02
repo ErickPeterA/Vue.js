@@ -1,0 +1,1 @@
+Sistema irá notificar o usuário de acordo com suas preferências.
