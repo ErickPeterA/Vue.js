@@ -1,11 +1,11 @@
 {
   "name": "vue",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Frontend Vue.js para gerenciamento de hábitos",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,12 @@
   },
   "homepage": "https://github.com/ErickPeterA/Vue.js#readme",
   "dependencies": {
-    "dayjs": "^1.11.21"
+    "dayjs": "^1.11.21",
+    "vue": "^3.5.0",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "vite": "^7.0.0",
+    "@vitejs/plugin-vue": "^6.0.0"
   }
-  
 }

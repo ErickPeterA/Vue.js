@@ -1,0 +1,38 @@
+export const habitosMock = [
+  {
+    id: 1,
+    nome: 'Beber água',
+    descricao: 'Completar a meta diária de hidratação.',
+    meta: '8 copos por dia',
+    pontuacao: 92,
+    status: 'Em dia',
+    categoria: 'Saúde',
+  },
+  {
+    id: 2,
+    nome: 'Estudar programação',
+    descricao: 'Separar um período do dia para prática e revisão.',
+    meta: '60 min por dia',
+    pontuacao: 78,
+    status: 'Em dia',
+    categoria: 'Estudos',
+  },
+  {
+    id: 3,
+    nome: 'Caminhar',
+    descricao: 'Fazer uma caminhada leve durante a semana.',
+    meta: '4 vezes por semana',
+    pontuacao: 46,
+    status: 'Precisa melhorar',
+    categoria: 'Saúde',
+  },
+  {
+    id: 4,
+    nome: 'Ler antes de dormir',
+    descricao: 'Trocar alguns minutos de tela por leitura.',
+    meta: '20 min por noite',
+    pontuacao: 64,
+    status: 'Atenção',
+    categoria: 'Bem-estar',
+  },
+]

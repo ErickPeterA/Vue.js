@@ -1,6 +1,7 @@
-rota          | Tela     | Parametros | Projetgido
-  
-/             | Home     | -          | não
-/login        | Login    | -          | não
-/habitos      | Habitos  | -          | não
-/habitos/:id  | Detalhe  | id         | sim
+| Rota | Tela | Parâmetros | Protegida |
+| --- | --- | --- | --- |
+| `/` | Home (redireciona para Hábitos) | — | não |
+| `/login` | Login | — | não |
+| `/habitos` | Hábitos | — | não |
+| `/habitos/:id` | Detalhe do hábito dentro da tela Hábitos | `id` | sim |
+| `/:pathMatch(.*)*` | 404 | caminho inválido | não |
