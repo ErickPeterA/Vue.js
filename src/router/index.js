@@ -2,8 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import HabitosView from '../views/HabitosView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
+import { sessao } from '../autenticacao/sessao.js'
 
-const estaAutenticado = () => Boolean(localStorage.getItem('habitos-session'))
+const estaAutenticado = () => Boolean(sessao.token.value)
 
 const router = createRouter({
   history: createWebHistory(),

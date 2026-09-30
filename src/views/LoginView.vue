@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { sessao } from '../autenticacao/sessao.js'
 
 const router = useRouter()
 const route = useRoute()
@@ -17,7 +18,6 @@ const erros = reactive({
 
 const enviando = ref(false)
 const mensagem = ref('')
-const emit = defineEmits(['session-changed'])
 
 function validar() {
   erros.email = ''
@@ -44,16 +44,17 @@ async function entrar() {
   if (!validar()) return
 
   enviando.value = true
-  await new Promise((resolve) => setTimeout(resolve, 450))
-
-  localStorage.setItem(
-    'habitos-session',
-    JSON.stringify({ email: formulario.email, criadoEm: new Date().toISOString() }),
-  )
-  emit('session-changed')
-
-  const destino = typeof route.query.redirect === 'string' ? route.query.redirect : '/habitos'
-  router.push(destino)
+  try {
+    await sessao.entrar(formulario.email, formulario.senha)
+    const destino = typeof route.query.redirect === 'string' ? route.query.redirect : '/habitos'
+    router.push(destino)
+  } catch (erro) {
+    mensagem.value = erro.status === 401
+      ? 'E-mail ou senha inválidos.'
+      : 'Não foi possível entrar. Tente novamente.'
+  } finally {
+    enviando.value = false
+  }
 }
 </script>
 
@@ -78,7 +79,7 @@ async function entrar() {
       <div class="card-heading">
         <p class="eyebrow">Bem-vindo de volta</p>
         <h2>Entrar na sua conta</h2>
-        <p>Para esta versão acadêmica, qualquer e-mail válido e senha com 6 caracteres funciona.</p>
+        <p>Informe seu e-mail e senha para acessar seus hábitos.</p>
       </div>
 
       <form novalidate @submit.prevent="entrar">

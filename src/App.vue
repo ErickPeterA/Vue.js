@@ -1,23 +1,15 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { sessao } from './autenticacao/sessao.js'
 
 const router = useRouter()
-const sessionVersion = ref(0)
 
-const autenticado = computed(() => {
-  sessionVersion.value
-  return Boolean(localStorage.getItem('habitos-session'))
-})
+const autenticado = computed(() => Boolean(sessao.token.value))
 
 function sair() {
-  localStorage.removeItem('habitos-session')
-  sessionVersion.value += 1
+  sessao.sair()
   router.push('/login')
-}
-
-function atualizarSessao() {
-  sessionVersion.value += 1
 }
 </script>
 
@@ -37,9 +29,7 @@ function atualizarSessao() {
     </header>
 
     <main>
-      <RouterView v-slot="{ Component }">
-        <component :is="Component" @session-changed="atualizarSessao" />
-      </RouterView>
+      <RouterView />
     </main>
   </div>
 </template>
