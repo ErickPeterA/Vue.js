@@ -3,3 +3,12 @@ habitos
 notificacao
 autenticacao
 filtro
+features
+  eventos
+    api
+    components
+    composables
+    views
+  inscricoes
+    api
+    components

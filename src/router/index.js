@@ -1,55 +1,27 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginView from '../views/LoginView.vue'
+import { useSessaoStore } from '../features/autenticacao/store/sessao.js'
+import EventoDetalheView from '../features/eventos/views/EventoDetalheView.vue'
+import EventosView from '../features/eventos/views/EventosView.vue'
 import HabitosView from '../views/HabitosView.vue'
+import LoginView from '../views/LoginView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
-import { sessao } from '../autenticacao/sessao.js'
-
-const estaAutenticado = () => Boolean(sessao.token.value)
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      redirect: '/habitos',
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: LoginView,
-    },
-    {
-      path: '/habitos',
-      name: 'habitos',
-      component: HabitosView,
-    },
-    {
-      path: '/habitos/:id',
-      name: 'habito-detalhe',
-      component: HabitosView,
-      meta: { requiresAuth: true },
-    },
-    {
-      path: '/:pathMatch(.*)*',
-      name: 'not-found',
-      component: NotFoundView,
-    },
+    { path: '/', name: 'home', redirect: '/eventos' },
+    { path: '/eventos', name: 'eventos', component: EventosView },
+    { path: '/eventos/:id', name: 'evento-detalhe', component: EventoDetalheView, meta: { requiresAuth: true } },
+    { path: '/login', name: 'login', component: LoginView },
+    { path: '/habitos', name: 'habitos', component: HabitosView },
+    { path: '/habitos/:id', name: 'habito-detalhe', component: HabitosView, meta: { requiresAuth: true } },
+    { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFoundView },
   ],
-  scrollBehavior() {
-    return { top: 0 }
-  },
+  scrollBehavior() { return { top: 0 } },
 })
-
 router.beforeEach((to) => {
-  if (to.meta.requiresAuth && !estaAutenticado()) {
-    return {
-      name: 'login',
-      query: { redirect: to.fullPath },
-    }
-  }
-
+  const sessao = useSessaoStore()
+  if (to.meta.requiresAuth && !sessao.token) return { name: 'login', query: { redirect: to.fullPath } }
   return true
 })
-
 export default router

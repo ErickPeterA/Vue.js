@@ -87,6 +87,17 @@ Requisitos para as rotas:
 - Preservar os dados inseridos pelo usuário quando uma validação falhar, sempre que possível.
 - Evitar alterações fora do escopo da tarefa atual.
 
+## Integração com a API REST
+
+- A API de eventos roda em `http://localhost:3001`; no frontend, a origem deve vir de `VITE_API_URL`.
+- Somente arquivos `api/*.js` podem conhecer `fetch` e a URL da API. Componentes e composables chamam funções dessa camada.
+- Toda chamada deve verificar `response.ok` e lançar erro com o status HTTP quando a resposta falhar.
+- Erros de validação usam `{ erro, campos: { campo: mensagem } }`; recursos inexistentes usam `404` e conflitos usam `409`.
+- Telas remotas tratam carregamento, sucesso, vazio e erro, com uma ação para tentar novamente.
+- Formulários preservam os dados em falhas e impedem envios duplicados.
+- A sessão global usa Pinia; senha nunca entra na store e token/usuário são persistidos no `localStorage`.
+- Rotas protegidas redirecionam para `/login` e preservam o destino original. Qualquer `401` limpa a sessão.
+
 ## Critérios de aceite
 
 Uma funcionalidade só deve ser considerada concluída quando:

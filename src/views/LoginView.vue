@@ -1,10 +1,11 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { sessao } from '../autenticacao/sessao.js'
+import { useSessaoStore } from '../features/autenticacao/store/sessao.js'
 
 const router = useRouter()
 const route = useRoute()
+const sessao = useSessaoStore()
 
 const formulario = reactive({
   email: '',
